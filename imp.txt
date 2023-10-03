@@ -1,0 +1,19 @@
+pip --version
+
+python.exe -m pip install --upgrade pip
+
+Creating a 
+pip install virtualenv / py -m venv env
+C:\Python_proj> projvenv1\Scripts\Activate.ps1
+
+How to get requirements file?
+
+pip3 freeze >> requirements.txt
+
+How to get requirements.txt file using Pipenv?
+
+pip install pipenv 
+
+pipenv install mypackage  
+
+

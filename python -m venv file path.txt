@@ -1,0 +1,5 @@
+python -m venv <file path>
+
+cd Scripts
+
+./Activate.ps1
