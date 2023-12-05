@@ -123,6 +123,31 @@ df2=pd.DataFrame({"city":["Chicago","Boston","Los Angeles"], "rank": [1,4,5]})
 # select city, rank from df1 union select city , rank from df2
 #print (pd.concat([df1,df2]).drop_duplicates())
 
+# Performance tuning
+df1.info()
+df1.info(verbose=False , memory_usage='deep')
+df1.info(verbose=True , memory_usage='deep')
+
+import pandas as pd
+import pyarrow as pa
+import pyarrow.parquet as pq
+import dask.dataframe as dd
+
+df=pd.read_csv('CustomerSalesDataSet.csv')
+
+#Convert Pandas dataframe to Pyarrow table.
+table=pa.Table.from_pandas(df)
+
+#Check for column types in Pandas.
+print (df.types)
+
+print (table)
+
+#Write PyArrow table to Parquet file.
+pq.write_table(table,'my_file.parquet')
+
+#df.info(verbose=False)
+
 
 
 
