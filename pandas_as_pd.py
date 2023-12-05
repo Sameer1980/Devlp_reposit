@@ -146,10 +146,40 @@ print (table)
 #Write PyArrow table to Parquet file.
 pq.write_table(table,'my_file.parquet')
 
-#df.info(verbose=False)
-
-
-
+#df.info(verbose=False,memory_usage='deep')
+cols=["OrderID","OrderDate","ShipDate","Address_City","Address_State","Address_Postal_Code"]
+pq_df=pd.read_parquet('my_file.parquet',engine='fastparquet',columns=cols)
+pq_df.info(verbose=False,memory_usage='deep')
+better_dtypes={
+  "RowID": "int64",
+  "OrderID": "string[pyarrow]",
+  "OrderDate": "string[pyarrow]",
+  "ShipDate": "string[pyarrow]",
+  "ShipMode": "string[pyarrow]",
+  "CustomerID" : "string[pyarrow]",
+  "CustomerName" : "string[pyarrow]",
+  "Segment" : "string[pyarrow]",
+  "Address_Country" : "string[pyarrow]",
+  "Address_City" : "string[pyarrow]",
+  "Address_State": "string[pyarrow]",
+  "Address_Postal_Code" : "int64",
+  "Address_Region" : "string[pyarrow]",
+  "Product_ID" : "string[pyarrow]",
+  "Category" : "string[pyarrow]",
+  "Sub_Category" : "string[pyarrow]",
+  "Sales" : "float64",
+  "Quantity" : "int64",
+  "Discount" : "float64",
+  "Profit" : "float64",
+  }
+#Using normal dataframe with groupby.
+df2=pd.read_csv('CustomerSalesDataSet.csv')
+df2.groupby("Product_ID",dropna=False,observed=True).agg({"Sales": "sum"})
+df2.info(verbose=False,memory_usage='deep')
+#Using Dask dataframe with groupby.
+ddf=dd.read_csv("CustomerSalesDataSet.csv", dtype=better_dtypes)
+ddf.groupby("Product_ID",dropna=False,observed=True).agg({"Sales": "sum"})).compute()
+ddf.info(verbose=False,memory_usage='deep')
 
 
 
