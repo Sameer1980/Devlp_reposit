@@ -26,4 +26,4 @@ def second_highest_in_list():
         #print (val[-2])
 
 res=second_highest_in_list()
-print (res)
+print (f'Second highest -> {res}')
