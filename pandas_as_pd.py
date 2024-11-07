@@ -8,21 +8,26 @@ import ydata_profiling as yp
 import numpy as np
 
 pd.set_option('display.max_columns',None)
-# pd.set_option('display.max_rows',100)
-# print (pd.get_option('display.max_rows'))
-# print (pd.get_option('display.max_columns'))
+pd.set_option('display.max_rows',100)
+pd.set_option("expand_frame_repr",True)
+print (pd.get_option('display.max_rows'))
+print (pd.get_option('display.max_columns'))
+
 #pd.reset_option("max_columns")
 #print ('Hello world!!')
 df1= pd.read_csv('CustomerSalesDataSet.csv')
-#print(df1.head(10))
+#html_table=df1.to_html()
+#print (html_table)
+#df1=pd.read_table('CustomerSalesDataSet.csv')
+# print(df1.head(10))
 # print (df1.describe())
 # profile=yp.ProfileReport(df1)
 # profile.to_file('output.html')
 # profile.to_file('output.json')
 #print (df1.columns)
-# print ("Number of columns:", len(df1.columns))
-# #print ("No. of records:",df1.count())
-# print ("No.of distinct records",df1.nunique())
+print ("Number of columns:", len(df1.columns))
+#print ("No. of records:",df1.count())
+print ("No.of distinct records",df1.nunique())
 #unique_row_count=len(df1.drop_duplicates())
 # print (unique_row_count)
 #Shape of dataset
@@ -69,8 +74,8 @@ df1= pd.read_csv('CustomerSalesDataSet.csv')
 # res7=df1[(df1["Address_City"]=='Houston') | (df1["Segment"]=='Corporate')].head(5)
 # print (res7)
 
-#frame=pd.DataFrame({"col1":["A","B",np.NaN,"C","D"],"col2":["F",np.NaN,"G","H","I"]})
-#print (frame)
+# frame=pd.DataFrame({"col1":["A","B",np.NaN,"C","D"],"col2":["F",np.NaN,"G","H","I"]})
+# print (frame)
 
 # select * from frame where col2 is null.
 
@@ -90,8 +95,8 @@ df1= pd.read_csv('CustomerSalesDataSet.csv')
 #print (df1.groupby("Sub_Category").agg({"Sales":np.mean}))
 #print (df1.groupby("Sub_Category").agg({"Sales":[np.mean,np.size]}))
 
-df1=pd.DataFrame({"key":["A","B","C","D"],"value":np.random.randn(4)})
-df2=pd.DataFrame({"key":["B","D","D","E"],"value":np.random.randn(4)})
+# df1=pd.DataFrame({"key":["A","B","C","D"],"value":np.random.randn(4)})
+# df2=pd.DataFrame({"key":["B","D","D","E"],"value":np.random.randn(4)})
 #print (df1)
 
 #select * from df1 inner join df2 on df1.key=df2.key
@@ -112,9 +117,9 @@ df2=pd.DataFrame({"key":["B","D","D","E"],"value":np.random.randn(4)})
 #print (pd.merge(df1,df2,on="key",how="outer"))
 
 #Union
-df1=pd.DataFrame({"city":["Chicago","SanFrancisco","New York City"], "rank": range(1,4)})
+#df1=pd.DataFrame({"city":["Chicago","SanFrancisco","New York City"], "rank": range(1,4)})
 #print (df1)
-df2=pd.DataFrame({"city":["Chicago","Boston","Los Angeles"], "rank": [1,4,5]})
+#df2=pd.DataFrame({"city":["Chicago","Boston","Los Angeles"], "rank": [1,4,5]})
 #print (df2)
 
 # select city, rank from df1 union all select city , rank from df2
@@ -124,62 +129,62 @@ df2=pd.DataFrame({"city":["Chicago","Boston","Los Angeles"], "rank": [1,4,5]})
 #print (pd.concat([df1,df2]).drop_duplicates())
 
 # Performance tuning
-df1.info()
-df1.info(verbose=False , memory_usage='deep')
-df1.info(verbose=True , memory_usage='deep')
+# df1.info()
+# df1.info(verbose=False , memory_usage='deep')
+# df1.info(verbose=True , memory_usage='deep')
+#
+# import pandas as pd
+# import pyarrow as pa
+# import pyarrow.parquet as pq
+# import dask.dataframe as dd
 
-import pandas as pd
-import pyarrow as pa
-import pyarrow.parquet as pq
-import dask.dataframe as dd
-
-df=pd.read_csv('CustomerSalesDataSet.csv')
+#df=pd.read_csv('CustomerSalesDataSet.csv')
 
 #Convert Pandas dataframe to Pyarrow table.
-table=pa.Table.from_pandas(df)
+#table=pa.Table.from_pandas(df)
 
 #Check for column types in Pandas.
-print (df.types)
-
-print (table)
+# print (df.types)
+#
+# print (table)
 
 #Write PyArrow table to Parquet file.
-pq.write_table(table,'my_file.parquet')
+#pq.write_table(table,'my_file.parquet')
 
 #df.info(verbose=False,memory_usage='deep')
-cols=["OrderID","OrderDate","ShipDate","Address_City","Address_State","Address_Postal_Code"]
-pq_df=pd.read_parquet('my_file.parquet',engine='fastparquet',columns=cols)
-pq_df.info(verbose=False,memory_usage='deep')
-better_dtypes={
-  "RowID": "int64",
-  "OrderID": "string[pyarrow]",
-  "OrderDate": "string[pyarrow]",
-  "ShipDate": "string[pyarrow]",
-  "ShipMode": "string[pyarrow]",
-  "CustomerID" : "string[pyarrow]",
-  "CustomerName" : "string[pyarrow]",
-  "Segment" : "string[pyarrow]",
-  "Address_Country" : "string[pyarrow]",
-  "Address_City" : "string[pyarrow]",
-  "Address_State": "string[pyarrow]",
-  "Address_Postal_Code" : "int64",
-  "Address_Region" : "string[pyarrow]",
-  "Product_ID" : "string[pyarrow]",
-  "Category" : "string[pyarrow]",
-  "Sub_Category" : "string[pyarrow]",
-  "Sales" : "float64",
-  "Quantity" : "int64",
-  "Discount" : "float64",
-  "Profit" : "float64",
-  }
+# cols=["OrderID","OrderDate","ShipDate","Address_City","Address_State","Address_Postal_Code"]
+# pq_df=pd.read_parquet('my_file.parquet',engine='fastparquet',columns=cols)
+# pq_df.info(verbose=False,memory_usage='deep')
+# better_dtypes={
+#   "RowID": "int64",
+#   "OrderID": "string[pyarrow]",
+#   "OrderDate": "string[pyarrow]",
+#   "ShipDate": "string[pyarrow]",
+#   "ShipMode": "string[pyarrow]",
+#   "CustomerID" : "string[pyarrow]",
+#   "CustomerName" : "string[pyarrow]",
+#   "Segment" : "string[pyarrow]",
+#   "Address_Country" : "string[pyarrow]",
+#   "Address_City" : "string[pyarrow]",
+#   "Address_State": "string[pyarrow]",
+#   "Address_Postal_Code" : "int64",
+#   "Address_Region" : "string[pyarrow]",
+#   "Product_ID" : "string[pyarrow]",
+#   "Category" : "string[pyarrow]",
+#   "Sub_Category" : "string[pyarrow]",
+#   "Sales" : "float64",
+#   "Quantity" : "int64",
+#   "Discount" : "float64",
+#   "Profit" : "float64",
+#   }
 #Using normal dataframe with groupby.
-df2=pd.read_csv('CustomerSalesDataSet.csv')
-df2.groupby("Product_ID",dropna=False,observed=True).agg({"Sales": "sum"})
-df2.info(verbose=False,memory_usage='deep')
-#Using Dask dataframe with groupby.
-ddf=dd.read_csv("CustomerSalesDataSet.csv", dtype=better_dtypes)
-ddf.groupby("Product_ID",dropna=False,observed=True).agg({"Sales": "sum"})).compute()
-ddf.info(verbose=False,memory_usage='deep')
+# df2=pd.read_csv('CustomerSalesDataSet.csv')
+# df2.groupby("Product_ID",dropna=False,observed=True).agg({"Sales": "sum"})
+# df2.info(verbose=False,memory_usage='deep')
+# #Using Dask dataframe with groupby.
+# ddf=dd.read_csv("CustomerSalesDataSet.csv", dtype=better_dtypes)
+# ddf.groupby("Product_ID",dropna=False,observed=True).agg({"Sales": "sum"})).compute()
+# ddf.info(verbose=False,memory_usage='deep')
 
 
 

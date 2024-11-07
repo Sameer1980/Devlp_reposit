@@ -9,21 +9,3 @@ def highest_in_sublist():
     print (sublist[-2])
 
 highest_in_sublist()
-
-def second_highest_in_list():
-    list1=[[8,10,2],[24,6,18],[39,13,26],[28,14]]
-    #SORTED LIST
-    for val in list1:
-        val.sort()
-    print (list1)
-    l1=[]
-    for inner in list1:
-        l1.append(inner[-2])
-    return l1
-    #print (list1)
-
-    #for val in list1:
-        #print (val[-2])
-
-res=second_highest_in_list()
-print (f'Second highest -> {res}')
