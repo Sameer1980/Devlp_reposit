@@ -619,6 +619,15 @@ print (counts)'''
 # Palindrome & list slicing--- Reversing any string , list or any iterable.
 # def isPalindrome(s):
 #     return s == s[::-1]
+# REVERSING A STRING METHOD 1 =========================================
+print ("\n\n")
+strng = "Hello World"
+print(f"Reversed string - {strng[::-1]}")
+
+# REVERSING A STRING METHOD 2 =========================================
+char_list = list(strng)
+char_list.reverse()
+print("".join(char_list))
 #
 # s = input ('Enter string----')
 # if s=='':
@@ -631,6 +640,8 @@ print (counts)'''
 # Get every second value between 4th and 8th element of the list.
 # nums = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 # part = nums[3:8:2]
+
+
 # print(part)
 
 # Slice the whole list.
