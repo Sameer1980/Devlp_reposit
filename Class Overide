@@ -1,0 +1,44 @@
+
+# CLASS OVERIDING
+
+class animal() :
+    def __init__(self, name: str) -> str:
+        self.name = name
+    def speak(self) -> str:
+        print (f"Hello my name is {self.name} and I am an animal!!")
+
+class dog(animal):
+    def __init__(self, name: str, type: str) -> str:
+      super().__init__(name)
+      self.type = type
+
+    # def speak(self) -> str:
+    #     print (f"Hello my name is {self.name} and I am a {self.type} !!")
+
+class cat(animal):
+    def __init__(self, name: str, type: str) -> str:
+        super().__init__(name)
+        self.type = type
+    def speak(self) -> str:
+       return f"Hello my name is {self.name} and I am a {self.type}"
+
+dog_obj = dog("Buddy","dog")
+dog_obj.speak()
+
+cat_obj = cat ("Whiskers", "cat")
+print(cat_obj.speak())
+
+
+# EXTENDING A PARENT METHOD WITH SUPER()
+
+class employee():
+    def get_benefits(self) -> str:
+        return "Health insurance"
+
+class manager(employee):
+    def get_benefits(self) -> str:
+        base_benefits = super().get_benefits()
+        print (f"{base_benefits} + company car")
+
+mgr = manager()
+mgr.get_benefits()
