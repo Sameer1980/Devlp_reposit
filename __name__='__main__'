@@ -1,0 +1,37 @@
+# Use of __name__='__main__': This we can use to create and test a script and import it as a module into another file.
+#calculator.py
+def add(a,b):
+    return a + b
+
+def subtract(a,b):
+    return a - b
+
+def multiply(a,b):
+    return a * b
+
+def divide (a,b):
+    try:
+      return  a/b
+    except Exception as e:
+        print (e.args)
+
+if __name__ == "__main__":
+ print (f"{__name__}")
+ print (f"Calculator operations:")
+ print (f"Add 3 and 5 -> {add(3,5)}")
+ print (f"Subtract 10 from 20 -> {subtract(20,10)}")
+ print (f"Divide 100 by 50-> {divide(100,50)}")
+
+# In driver.py
+import calculator
+
+if __name__ == '__main__':
+ result = calculator.add(34,40)
+ print (f"Imported Add Result:{result}")
+ print (f"{__name__}")
+ print (f"{type(__name__)}")
+
+
+
+
+
