@@ -1,0 +1,52 @@
+# Create / open a new file to write something into it
+# with open("testfile.txt","w") as file1:
+#     file1.write ("This file has been newly created. This is the first line.")
+
+#append
+# with open ("testfile.txt","a") as file1:
+#     file1.write("\n Adding second line to the file.")
+
+#append another line
+# with open("testfile.txt","a") as file1:
+#     file1.write("\n Adding a third and final line to the file.")
+
+#Reading - multiple lines.
+# with open("testfile.txt","r") as file1:
+#     fileread = file1.read()
+#     print (f"Using read: {fileread}")
+
+#print ("\n\n")
+#Reading one line
+# with open("testfile.txt","r") as file1:
+#     fileread = file1.readline()
+#     print (f"Using readline(): {fileread}")
+
+#print ("\n\n")
+# Reading multiple lines
+# with open ("testfile.txt","r") as file1:
+#     fileread = file1.readlines()
+#     print (f"Using readlines():{fileread} ")
+
+#print("\n\n")
+# Copying from one file to another .
+# def filecopy():
+#   try:
+#      with open ("testfile.txt","r") as file1:
+#        all_lines = file1.readlines()
+#      with open ("newtestfile.txt","w") as file2:
+#        for lines in all_lines:
+#           file2.write (lines)
+#   except Exception as e:
+#      print (e.args)
+
+#filecopy()
+
+# For large datasets , log files or huge text documents do not use read() or readlines() bacause
+# both load the entire file into your computer memory overloading your RAM.
+
+with open ("testfile.txt","r") as file1:
+    for line in file1:
+        print (line.strip())
+
+
+
