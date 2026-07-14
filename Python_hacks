@@ -1,0 +1,90 @@
+# Python's built-in tempfile module for automation projects that generate intermediate data.
+import tempfile
+with tempfile.NamedTemporaryFile(mode = "w+", delete = True) as file:
+    file.write("Automation completed")
+    file.seek(0)
+    print(file.read())
+
+from openpyxl import Workbook
+
+#1 - Create a blank workbook object
+wb = Workbook()
+
+# - Get the default active sheet that comes with it.
+sheet = wb.active
+sheet.title = "Overview Data"
+
+# - Add data to a specific cell.
+sheet["A1"] = "Hello world!"
+
+# - Create multiple sheets
+sheet2 = wb.create_sheet("Data")
+sheet3 = wb.create_sheet("Graphs")
+
+#- Change the default opened tab to the "Graphs" sheet
+wb.active = sheet3
+
+# - Save the file to your computer .
+wb.save ("my_first_file.xlsx")
+
+# FIND FILES INSTANTLY WITH PATHLIB
+from pathlib import Path
+for file in Path(".").glob("*.xlsx"):
+   print(file.name)
+
+# Checking current path and file system attributes.
+current_path = Path("my_first_file.xlsx")
+if current_path.exists():
+    print ("Path exists.")
+    if current_path.is_file():
+      print ("It is a file.")
+    elif current_path.is_dir():
+      print ("It is a folder.")
+
+# - Use a one liner that writes imports ..
+from pathlib import Path
+imports = ["os", "sys", "time", "logging"]
+Path("base_imports.py").write_text("\n".join([f"import {i}" for i in imports]))
+
+#- Using join in Python - not a hack.
+letters = ["P", "y", "t", "h", "o", "n"]
+word = "".join(letters)
+print(word)
+
+numbers = [1,2,3,4]
+#Convert numbers to strings on the fly using a generator expression.
+result = "-".join(str(num) for num in numbers)
+print (f"{type(result)} - {result}")
+
+# Drop this tiny helper script in every project for logging.
+import logging
+def get_logger(name = "app"):
+    logging.basicConfig(
+        level = logging.INFO,
+        filename = 'app.log',
+        filemode = 'a',
+        format="%(asctime)s [%(levelname)s]: %(message)s"
+    )
+    return logging.getLogger(name)
+
+log = get_logger()
+log.info("Automation started")
+
+# Auto caching function results. Everytime URL is requested , its served from memory instead of hitting
+# the network.
+
+from functools import lru_cache
+import requests
+@lru_cache(maxsize = None)
+def get_data(url):
+    return requests.get(url).text
+
+#Scheduling Tasks without Cron. Drop it any script and instantly make it time based.
+import schedule
+import time
+def backup():
+    print ("Running automated backup...")
+schedule.every().day.at("22:00").do(backup)
+while True:
+    schedule.run_pending()
+    time.sleep(1)
