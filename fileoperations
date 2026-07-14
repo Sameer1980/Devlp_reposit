@@ -56,5 +56,16 @@ from pathlib import Path
 imports = ["os", "sys", "time", "logging"]
 Path("base_imports.py").write_text("\n".join([f"import {i}" for i in imports]))
 
+from pathlib import Path
+# 1. Define the file path
+file_path = Path("example.txt")
+
+# 2. Write content directly (creates the file if it doesn't exist)
+file_path.write_text("Hello, this is a sample text!", encoding="utf-8")
+
+# 3. Read it back to verify
+print (file_path)
+print(file_path.read_text())
+
 
 
