@@ -48,5 +48,13 @@ with open ("testfile.txt","r") as file1:
     for line in file1:
         print (line.strip())
 
+#path.write_text() is a convenient method from the pathlib module used to open a file, 
+#write a string to it, and close it automatically.It simplifies file operations by eliminating the need for a boilerplate 
+#with open(...) context manager bloc.
+
+from pathlib import Path
+imports = ["os", "sys", "time", "logging"]
+Path("base_imports.py").write_text("\n".join([f"import {i}" for i in imports]))
+
 
 
