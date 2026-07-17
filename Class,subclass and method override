@@ -26,13 +26,13 @@ class cat(animal):
                f"and I:{self.call}")
 
 
+if __name__ == '__main__':
+ #animal = animal('feline',"meow")
+ #print(type(animal))
+ #animal.nature_call()
 
-#animal = animal('feline',"meow")
-#print(type(animal))
-#animal.nature_call()
+ dog = dog('Toby','Canine','Woof!!')
+ dog.nature_call()
 
-dog = dog('Toby','Canine','Woof!!')
-dog.nature_call()
-
-cat = cat("Felix","Feline","meow!!")
-cat.nature_call()
+ cat = cat("Felix","Feline","meow!!")
+ cat.nature_call()
