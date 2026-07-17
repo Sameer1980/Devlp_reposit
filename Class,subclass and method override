@@ -1,0 +1,38 @@
+class animal():
+    def __init__(self, species, call):
+        self.call = call
+        self.species = species
+
+    def nature_call(self):
+        print(f"I belong to the species {self.species} and I:....{self.call}")
+
+class dog(animal):
+    def __init__(self,name,species,call):
+        super().__init__(species,call)
+
+        self.name = name
+    def nature_call(self):
+        print (f"My name is {self.name},I belong to the species {self.species} "
+               f"and I: {self.call} ")
+
+class cat(animal):
+    def __init__(self,name,species,call):
+      super().__init__(species,call)
+
+      self.name = name
+
+    def nature_call(self):
+        print (f"My name is {self.name}, I belong to the species {self.species} "
+               f"and I:{self.call}")
+
+
+
+#animal = animal('feline',"meow")
+#print(type(animal))
+#animal.nature_call()
+
+dog = dog('Toby','Canine','Woof!!')
+dog.nature_call()
+
+cat = cat("Felix","Feline","meow!!")
+cat.nature_call()
