@@ -2,7 +2,8 @@
 Utility Functions: Grouping helper methods (like mathematical computations, file parsing, or string formatting) that support the domain language of the class.
 Code Organization: Bundling independent code into a class namespace to clarify that the logic is conceptually tied to that specific class.It is used for 
 creating isolated utility / helper functions.It is a method defined inside a class that does not operate on the class itself or any of its instances. 
-It behaves exactly like a regular, isolated function, but lives inside a class namespace purely for logical code organization and grouping*/
+It behaves exactly like a regular, isolated function, but lives inside a class namespace purely for logical code 
+organization and grouping.It is implemented as a decorator */
 
 class MathUtils:
     @staticmethod
