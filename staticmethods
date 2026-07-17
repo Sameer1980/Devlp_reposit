@@ -1,0 +1,73 @@
+/*When to Use a Static Method
+Utility Functions: Grouping helper methods (like mathematical computations, file parsing, or string formatting) that support the domain language of the class.
+Code Organization: Bundling independent code into a class namespace to clarify that the logic is conceptually tied to that specific class.It is used for 
+creating isolated utility / helper functions.It is a method defined inside a class that does not operate on the class itself or any of its instances. 
+It behaves exactly like a regular, isolated function, but lives inside a class namespace purely for logical code organization and grouping*/
+
+class MathUtils:
+    @staticmethod
+    def add_numbers(a,b):
+        return a + b
+if __name__ == '__main__':
+ result = MathUtils.add_numbers(5,10)
+ print(f"Result -  {result}")
+============================================================================================================================================
+class MathUtility:
+    """A utility class demonstrating static methods."""
+    
+    @staticmethod
+    def add(a, b):
+        """Add two numbers."""
+        return a + b
+    
+    @staticmethod
+    def multiply(a, b):
+        """Multiply two numbers."""t
+        return a * b
+    
+    @staticmethod
+    def is_even(number):
+        """Check if a number is even."""
+        return number % 2 == 0
+
+
+class StringHelper:
+    """A helper class for string operations."""
+    
+    @staticmethod
+    def reverse_string(text):
+        """Reverse a string."""
+        return text[::-1]
+    
+    @staticmethod
+    def count_vowels(text):
+        """Count vowels in a string."""
+        vowels = "aeiouAEIOU"
+        return sum(1 for char in text if char in vowels)
+    
+    @staticmethod
+    def is_palindrome(text):
+        """Check if a string is a palindrome."""
+        cleaned = text.lower().replace(" ", "")
+        return cleaned == cleaned[::-1]
+
+
+# Usage examples
+if __name__ == "__main__":
+    # Call static methods without creating an instance
+    print("Math Operations:")
+    print(f"5 + 3 = {MathUtility.add(5, 3)}")
+    print(f"5 × 3 = {MathUtility.multiply(5, 3)}")
+    print(f"Is 4 even? {MathUtility.is_even(4)}")
+    print(f"Is 7 even? {MathUtility.is_even(7)}")
+    
+    print("\nString Operations:")
+    print(f"Reverse 'hello': {StringHelper.reverse_string('hello')}")
+    print(f"Vowels in 'programming': {StringHelper.count_vowels('programming')}")
+    print(f"Is 'racecar' a palindrome? {StringHelper.is_palindrome('racecar')}")
+    print(f"Is 'hello' a palindrome? {StringHelper.is_palindrome('hello')}")
+
+# Importing the module in another program.
+from static_method_example import MathUtility,StringHelper
+print(MathUtility.add(10,5))
+print(StringHelper.is_palindrome('madam'))
