@@ -1,0 +1,157 @@
+
+#The functools module in Python's standard library provides higher-order functions—utilities
+# that accept other functions as arguments or return them as results.
+# It serves as a toolset for functional programming,
+# optimization, and decorator creation.
+
+#Performance optimization and caching.- @cache , @lru_cache, @cached_property
+from functools import cache
+
+@cache
+def heavy_calculation(*args):
+   result = 1
+   for n in args:
+        result += n
+   return result
+
+print (heavy_calculation(1,2,3,4,5,6,7,8,9))
+
+print ("\n\n")
+# partial() and reduce() . These tools allow you to pre-configure functions
+# or consolidate data iteratively.
+# Partial() is a higher order function from the builtin functools module that
+# allows you to "freeze" a portion of a function's arguments to create a new,
+# simplified function'.
+# When you apply partial to a function , it locks in specific positional or
+# keyword arguments . The resulting object is a new callable that only requires the
+# remaining unassigned arguments to execute .
+
+from functools import partial, reduce
+
+# A standard function with two arguments
+def multiply (x,y):
+    return x * y
+
+# Create a new function that always multiplies by 2.
+double = partial(multiply, 2) # freezes x as 2
+
+# Call the new function with the remaining argument.
+print (double(1000))
+
+
+# Reduce # 1+2=3 -> 3+3=6 -> 6+4=10
+
+numbers = [1,2,3,4]
+result = reduce (lambda x,y: x + y, numbers)
+print (result)
+
+
+print ("\n\n")
+# Custom decorator development - When you wrap a function inside a custom decorator
+# you accidentally overwrite that outer function's name and documentation.
+# @wraps is a decorator from the functools module used inside custom decorators
+# to copy the original function's metadata (like it's name , docstring and annotations)
+# to the inner wrapper function.
+# @wraps updates the wrapper to preserve - __name__, __doc__, __annotations__,__wrapped__
+
+#Without wraps
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+
+@my_decorator
+def add(a, b):
+    """Adds two numbers together."""
+    return a + b
+
+print(add.__name__)  # Outputs: 'wrapper'
+print(add.__doc__)   # Outputs: None
+
+# With @wraps
+from functools import wraps
+def my_decorator(func):
+    @wraps(func) # copies metadata from func to wrapper.
+    def wrapper(*args, **kwargs):
+        return func(*args, **kwargs)
+    return wrapper
+
+@my_decorator
+def add(a, b):
+    """Adds two numbers together."""
+    return a + b
+
+print(add.__name__)  # Outputs: 'wrapper'
+print(add.__doc__)   # Outputs: None
+
+
+print("\n\n")
+"""Without lru_cache - Fibonacci. """
+# 0,1,1,2,3,5,8,13,21.....
+"""Using recursive function."""
+def fibonacci (n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+
+for num in range(15):
+    print (f"{fibonacci(num)}")
+
+print ("\n\n")
+"""With lru_cache - Fibonacci"""
+from functools import lru_cache
+
+@lru_cache(maxsize = None)
+def fibonacci(n):
+    if n <= 1:
+        return n
+    return fibonacci(n - 1) + fibonacci(n - 2)
+
+for num in range(15):
+    print (f"{fibonacci(num)}")
+
+
+def fibonacci (n):
+    a = 1
+    b = 1
+    if n > 0:
+      print (a)
+      print (b)
+      for i in range(2,n):
+        c = a + b
+        a = b
+        b = c
+        print (c)
+    else:
+       print(f"Please enter positive values!!")
+
+fibonacci(10)
+
+numbers = [1,2,3,4,5,6,7]
+result_map = list(map(lambda x: x * 2,numbers))
+print (result_map)
+
+result_reduce = reduce(lambda x,y: x + y,numbers)
+print (result_reduce)
+
+result_filter= list(filter(lambda x: x%2 == 0, numbers))
+print (result_filter)
+#
+# def factorize(n):
+#     result = 1
+#     for num in range(1,n):
+#         result *= num
+#     return result
+#
+# print (factorize(6))
+
+print("\n\n")
+
+@lru_cache()
+def factorial(n):
+    if n == 0 or n == 1:
+        return 1
+    return n * factorial(n - 1)
+
+print(factorial(4))  # 120
