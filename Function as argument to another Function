@@ -1,0 +1,44 @@
+# Function passed to another function as argument and assigned to variable:
+def hello():
+    return 'Hello!!'
+
+greet = hello()
+#print (type(greet))
+print (greet)
+
+def multiply(*args):
+    result = 1
+    for num in args:
+      result *= num
+    return result
+
+
+def execute (func, *args , **kwargs):
+    #Unpack the arguments directly into the passed function
+    return func(*args, **kwargs)
+
+result = execute(multiply, 4,5,6,2)
+print (result)
+
+#Using anonymous Lambda functions.
+
+def apply_operation(value , operation):
+    return operation(value)
+
+#Pass a Lambda function that squares a number
+result = apply_operation(6, lambda x: x ** 2)
+print (result)
+
+#Built-in Python functions that accept Functions
+# map(func, iterable) -> Applies a function to every item in a collection.
+# filter(func, iterable) -> Uses a function to test and filter items in a collection
+#sorted (iterable, key=func) -> Uses a function custom sorting logic.
+
+numbers = [1,2,3,4,5,6,7,8]
+
+squared = list(map(lambda x: x ** 2, numbers))
+
+print (squared)
+
+filtered = list(filter(lambda x: x%2 == 0, squared))
+print (filtered)
