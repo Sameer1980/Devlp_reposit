@@ -1,0 +1,122 @@
+
+for val in 'SAMIR':
+    print (val)
+
+# Because Python strings are immutable, these operations never modify the original string;
+# instead, they always return a brand new string or value
+
+#Format()
+marks_comments = "I secured {} out of {} total marks."
+print(marks_comments.format(650,700))
+#
+# The str.format() method in Python inserts dynamic values and variables into
+# specific placeholders within a template string.
+# It works by searching a string for curly braces {}, which act as placeholders,
+# and replacing them with the arguments passed directly into the method.
+
+# To control how data looks activate these features by placing a column : inside
+# curly braces followed by a format specifier.
+
+#Decimal precision -
+print("{:.2f}".format(3.1415923478654231))
+
+#Text padding
+print("{:>10}".format("test"))
+
+#Lower() , Upper() and Title()
+greeting = "Welcome to Python."
+print(greeting.lower())
+print (greeting.upper())
+print(greeting.title())
+
+print ("\n\n")
+# Strip()
+text1 = '                apples and oranges                 '
+text2 = '........................lemons and limes............................'
+
+print(text1.strip())
+print(text2.strip('.'))
+
+text3 = '.........++..............grapes and berries..............--.............'
+print(text3.strip('.+-'))
+
+#Split() -> The string method split(), splits a string into a list of items.
+# If no argument is passed default behaviour is to split on whitespace.
+# If an argument is passed to the method , that value is used as the delimiter
+# on which to split the string.
+
+name = 'Johnson & Johnson'
+splitted1 = name.split()
+print(splitted1)
+print (type(splitted1))
+
+splitted2 = name.split('&')
+print(splitted2)
+
+#Find() - The Python string method find() returns the index of the first occurence
+# of the string passed as the argument.It returns -1 if no occurrence is found.
+
+text = "Mount Everest is the highest peak in the world!!"
+print (text.find("Everest"))
+print (text.find("Himalaya"))
+
+# Indexing in Python string starts from 0.
+text = 'Python'
+
+print(text[0])
+print(text[1])
+
+print(text[-1])
+print(text[-2])
+
+#Replace - .replace()
+
+text = 'SAMIR'
+
+new_text = text.replace('I','EE')
+print(text)
+print(new_text)
+
+#Join - .join()
+text = "Python"
+pythonic = '-'.join(text)
+print(pythonic)
+
+text2 = "Python is a good language to learn!!"
+split1 = text2.split()
+transf1 = '-'.join(split1)
+print(transf1)
+
+text3 = 'Pythonprogramming'
+transf2 = ' '.join(text3)
+print(transf2)
+#
+# import wordninja
+# text = "thisisasentencewithnowhitespaces"
+#
+# #Split the mashed text into a list of words.
+# words = wordninja.split(text)
+#
+# # Join them with spaces.
+# result = " ".join(words)
+# print(result)
+
+from wordsegment import load , segment
+
+# You must load the data model once before segmenting.
+load()
+
+text= "howtocreatewhitespace"
+words = segment(text)
+result = " ".join(words)
+
+print (result)
+
+def seperatemashups(text):
+    load()
+    words = segment(text)
+    result = " ".join(words)
+    return result
+
+print (seperatemashups('thisisasentencewithnowhitespaces'))
+
