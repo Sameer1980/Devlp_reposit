@@ -1,0 +1,239 @@
+#In Python, rand and randint are functions used to generate random numbers,
+# but their availability and behavior depend on whether
+# you are using Python's standard random module or the third-party numpy library .
+
+# Python built-in random module.
+#random.random(): Generates a random floating-point number between 0.0 (inclusive)
+#and 1.0 (exclusive).
+#random.randint(a, b): Generates a random integer between a and b,
+# inclusive of both endpoints.
+
+# import random
+#
+# print (random.random())
+#
+# print (random.randint(1,6))
+#
+# print ("\n\n")
+#
+# import numpy as np
+#
+# # Generate a 2 * 3 matrix of random floats .
+#
+# print (np.random.rand(2,3))
+
+# Generate a 1D array of 5 random integers between 10 and 50 (50 is excluded)
+
+#print (np.random.randint(10,50,size = 5))
+
+
+# A Python decorator is a design pattern that allows you to modify or extend the
+# behavior of a function or class without permanently changing its source code.
+# Technically, a decorator is a higher-order function that takes another function
+# as an argument, adds some wrapper functionality, and returns a new function.
+
+# Core Concept:
+# Decorators leverage the fact that functions in Python are first-class objects.
+# This means they can be passed around as arguments and returned from other
+# functions just like strings or integers.
+
+# Using a decorator is as simple as placing the @decorator_name syntax directly
+# above your function definition.
+
+# This syntax:
+# @my_decorator
+# def my_function():
+#     pass
+
+# Is exactly equivalent to writing:
+# my_function = my_decorator(my_function)
+
+def my_decorator(func):
+    def wrapper():
+        print ("Something is happening before the function is called.")
+        func()
+        print ("Something is happening after the function is called.")
+    return wrapper
+
+@my_decorator
+def say_hello():
+    print ("Hello!!")
+
+say_hello()
+
+# A Python decorator has two return statements to handle two separate layers of execution:
+# replacing the original function and passing the actual data.
+# A standard decorator looks like this:
+
+def my_decorator(func):
+    def wrapper(*args, **kwargs):
+        # 1. Do something before the original function
+        result = func(*args, **kwargs)
+        # 2. Do something after
+        return result  # Return statement 2: Returns the original function's result
+    return wrapper     # Return statement 1: Returns the wrapper function
+#
+# 1. Returning the Wrapper Function
+# What it does: The outer function returns the wrapper function.
+# Why it's needed: Decorators work by replacing the original function with the wrapper.'
+#  ' When you decorate a function (e.g., using @my_decorator), '
+#    'Python essentially runs: my_function = my_decorator(my_function). '
+#    'Without this outer return, your original function would disappear or become None.'
+
+# 2. Returning the Original Function('s Result'
+# 'What it does: The inner wrapper function returns the result of executing the '
+#  'actual target function.'
+#  'Why it's needed: If the wrapper intercepts the call but fails to return the result,
+# your decorated functions will always return None when executed.
+# This ensures any value computed by your function successfully bubbles up to the caller.
+
+print("\n\n")
+def new_decorator(original_func):
+    def wrap_func():
+        print(f"Print some extra code before the original function!")
+        original_func()
+        print(f"Print some extra code after the original function!")
+        return original_func
+    return wrap_func
+
+
+@new_decorator
+def func_needs_decorator():
+     print(f"I want to be decorated!!")
+
+func_needs_decorator()
+
+print ("\n\n")
+def logger_decorator(func):
+    def wrapper(*args, **kwargs):
+        print(f"Calling {func.__name__} with args:{args}, kwargs: {kwargs}")
+        result = func(*args , **kwargs)
+        print(f"{func.__name__} returned: {result}")
+        return result
+    return wrapper
+
+@logger_decorator
+def greet(name, greeting = 'Hello'):
+    return f"{greeting},{name} !"
+
+greet("Alice",greeting = "Welcome")
+
+#============== GENERATORS =============================
+
+# Range is not a generator function in Python.
+# While it is commonly called a function, range
+# is actually a built-in class type that represents an immutable sequence of numbers.
+#
+# It is "lazy" like a generator because it does not store all its values
+# in memory at once, but it operates quite differently under the hood.
+
+print("\n\n")
+import types
+
+# 1. Check range
+print(type(range(5)))
+
+# 2. Check a true generator expression
+gen = (x for x in range(5))
+print(type(gen))
+
+
+# Key differences between a range and a generator object.
+#range object                               Generator object
+# 1)An iterable sequence(like a lazy list )    An iterator(consumes data)
+# 2) Can be looped over multiple times.         Exhausts after a single use.
+# 3) Supports (len).Calculates size instantly    No.Has no concept of length.
+# 4) indexing(i).Supports direct (indexing       No. Cannot access items by index.
+#    and slicing)
+#
+# In Python, a generator is a special type of function that returns an iterator object,
+# allowing you to produce a sequence of values one at a time on demand (lazy evaluation)
+# instead of computing them all at once and saving them in memory.
+#
+# Unlike normal functions that use return to send back a single value and terminate,
+# generators use the yield keyword to temporarily pause the function, emit a value,
+# and save its entire state so it can resume right where it left off.
+#
+# Key Benefits
+# Memory Efficiency: They do not store the entire data sequence in your RAM,
+# making them perfect for massive datasets.
+#
+# Infinite Streams: Because values are calculated on the fly,
+# you can represent infinite data pipelines (like a constant stream of sensor logs)
+# without crashing your system.
+#
+# Cleaner Code: They simplify the process of writing
+# custom iterators by eliminating the need to manually build __iter__()
+# and __next__() class methods.
+#
+# When a function contains the yield statement, calling it doesn't run the code instantly.'
+# Instead, it creates a generator object.
+
+print ("\n\n")
+#1. Define the generator function.
+def count_up_to(max_num):
+    count = 1
+    while count <= max_num:
+        yield count   # Pauses here , returns value, saves state
+        count += 1
+
+#2. Initialize the generator object.
+counter = count_up_to(4)
+print (f"Type-{type(counter)}")
+
+#3. Fetch values using a for loop (recommended)
+for number in counter:
+    print(number)
+
+# You can also pull values manually one by one using the built-in next() function.
+# Once a generator runs out of items, it raises a StopIteration exception.
+
+print ("\n\n")
+single_counter = count_up_to(3)
+print (next(single_counter))
+print (next(single_counter))
+print (next(single_counter))
+#print (next(single_counter)) #Triggers stop iteration exception.
+
+print ("\n\n")
+#Using a for loop in Generator.
+# 1. Define the generator function
+def count_up_to(max_num):
+    for count in range(1,max_num):
+        yield count  # Pauses here, returns value, saves state
+
+# 2. Initialize the generator object
+counter = count_up_to(4)
+
+# 3. Fetch values using a for loop (recommended)
+for number in counter:
+    print(number)
+
+# Generator expressions
+# If your logic is simple, you can use a generator expression.
+# They use the exact same syntax as list comprehensions but use parentheses ()
+# instead of square brackets []
+
+print ("\n\n")
+# # List comprehension (Loads everything into memory immediately)
+import random
+# squares_list = [x ** 2 for x in range(random.randint(1,1000000))]
+# print (squares_list)
+
+# Generator expression (Calculates on demand, saving massive memory)
+squares_gen = (x ** 2 for x in range(1,random.randint(1,1000000)))
+
+print (type(squares_gen))
+print (next(squares_gen))
+print (next(squares_gen))
+
+Quick Comparison: return vs yield
+Feature return (Normal Function)                       yield (Generator Function)
+Execution: Terminates the function immediately.         Pauses the function and saves state.
+State Retention: Destroys all local variables.          Retains local variables for the next call.
+Data Delivery: Sends back a single object/entire list.   Sends back a continuous stream of elements.
+Memory Footprint: High (scales with dataset size).        Extremely low (constant overhead)
+
+
+
+
