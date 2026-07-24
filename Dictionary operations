@@ -1,0 +1,344 @@
+# DICTIONARY a Python dictionary implements a hash table. This architectural choice is what gives the dictionary its speed and versatility.
+# When you define a dictionary, you are essentially creating a sparse array, often called a bucket array.
+# When you insert a key-value pair, Python passes the key through a hash function.
+# # This function calculates a unique integer (the hash) that determines the specific
+# index in the bucket array where the value will be stored.
+
+# Because of this design:
+#Keys must be hashable, which usually means they must be of an immutable type (e.g., str, int, tuple)
+#Values can be mutable, including lists, other dictionaries, or custom objects.
+# Valid dictionary - immutable keys, any values
+user_data = {
+    "name" : "Alice",            # string key , string value
+    42: [1,2,3],                  # int key, list value
+    (10,20) : {"nested" : True}   # tuple key , dict value
+}
+
+print(type(user_data),"valid dict")
+
+try:
+    invalid_dict = {[1,2] : "value"} # Lists are not hashable
+except TypeError as e:
+    print(f"Error: {e}")
+
+# DICTIONARIES - Dictionaries are mutable
+new_dict = {'Name': 'Samir', 'Age': 45, 'City': 'Kolkata','Company': 'Capgemini'}
+#
+# The dict.items() method returns a dynamic view object containing (key, value) pairs as tuples.
+# This allows you to use a clean Python feature called tuple unpacking to grab both pieces of data
+# at once:
+
+for key,value in new_dict.items():
+    print (key,'->',value)
+
+my_dict= new_dict.items()
+#print (my_dict)
+
+print("\n\n")
+# If you only need the keys loop over the dictionary directly.
+for elements in new_dict:
+    print (elements)
+
+# Loop only through the values
+print("\n\n")
+
+for value in new_dict.values():
+    print (value)
+
+print("\n\n")
+#  If you passed the dictionary into a function and reassigned the variable inside (e.g., d = {'Name': 'Sameer'}),
+# the changes will not reflect outside the function.
+# def name_change():
+#     new_dict['Name'] = 'Sameer'
+#     return new_dict
+
+
+new_dict['Name'] = 'Sameer'
+for k,v in new_dict.items():
+    print(k,'->',v)
+# Adding a Key-Value Pair: You can add a new key-value pair using the square bracket notation.
+# If the key already exists, the associated value will be updated. Otherwise,
+# a new key-value pair will be added.
+print ("\n\n")
+new_dict['Occupation'] = 'IT_Consultant'
+for k,v in new_dict.items():
+    print(k,'-',v)
+
+new_dict['City'] = 'Kolkata'
+
+# To remove a key-value pair from a dictionary, you can use the del statement or the pop() function.
+# The del statement removes the key-value pair permanently,
+# while pop() removes and returns the value associated with the specified key.
+print("\n\n")
+# city = new_dict.pop('City')
+# print (city)
+
+print("\n\n")
+for k,v in new_dict.items():
+    print (k,'-',v)
+
+print("\n\n")
+#del new_dict['Occupation']
+
+for k,v in new_dict.items():
+    print (k,'-',v)
+
+# You can determine the number of key-value pairs in a dictionary using the len() function.
+print("\n\n")
+length = len(new_dict)
+print (length)
+
+# You can check if a key exists in a dictionary using the in keyword.
+# It returns a boolean value indicating whether the key is present or not.
+print("\n\n")
+if 'Age' in new_dict:
+    print('Age exists!')
+
+#List of all keys
+print("\n\n")
+keys = new_dict.keys()
+print(keys)
+
+#List of all values.
+val = new_dict.values()
+print(val)
+
+# Python provides the update() method to merge two dictionaries.
+# The method takes another dictionary as an argument and adds its key-value
+# pairs to the current dictionary. If the keys already exist, the values will be updated.
+# If the keys do not exist they will be inserted.
+
+print ("\n\n")
+'''new dictionary my_dict updated.'''
+my_dict = {}
+
+my_dict.update(new_dict)
+
+for k,v in my_dict.items():
+    print (k,'-',v)
+
+# So If I make a modification to one dictionary the other one will also get affected?
+
+# Delete one value from my_dict.
+print("\n\n")
+del my_dict['Age']
+print("Printing my_dict\n")
+for k,v in my_dict.items():
+    print (k,'-',v)
+
+print("\n\n")
+print("Printing new_dict\n")
+for k,v in new_dict.items():
+    print(k,'-',v)
+# Clear function is used to remove all key-value pairs from a dictionary, effectively emptying it.
+# It modifies the dictionary in place and does not return any value.
+
+print("\n\n")
+my_dict.clear()
+print(my_dict)
+
+# Copy - The copy() function in Python creates a shallow copy of a dictionary.
+# It returns a new dictionary object that is a replica of the original dictionary,
+# but the two dictionaries are independent of each other.
+# This means that modifications made to one dictionary will not affect the other.
+
+# Create shallow copy of new_dict.
+print("\n\n")
+new_dict_copy = new_dict.copy()
+#print(new_dict_copy)
+
+#Modifying the new dict.
+new_dict_copy['Occupation'] = 'IT_Manager'
+
+#print(new_dict)
+#print(new_dict_copy)
+print("\n\n")
+
+# dict() constructor is indispensable in a few scenarios.
+# # It acts as a type converter, allowing you to build dictionaries from sequences of tuples or keyword arguments.
+config = dict(host="localhost",port=8080,debug=True)
+print(config)
+# Converting a list of tuples (common in data processing)
+pairs = [("a",1),("b",2),("c",3)]
+lookup_table = dict(pairs)
+print(lookup_table)
+
+# Dictionary comprehension
+print("\n\n")
+squares = {x: x**2 for x in range(5)}
+print(squares)
+# Filtering data during creation
+print("\n\n")
+raw_data = {"a":10, "b":None, "c":5}
+clean_data = {k: v for k, v in raw_data.items() if v is not None}
+print(clean_data)
+
+#dict.fromkeys()
+# Initialize multiple keys with the same default value.
+print("\n\n")
+categories = ["electronics", "clothing", "food", "books"]
+inventory = dict.fromkeys(categories,0)
+print(inventory)
+
+#Initialize with None for optional fields.
+user_fields = ["email", "phone", "address", "company"]
+user_profile = dict.fromkeys(user_fields)
+print(user_profile)
+
+# DANGEROUS - all keys share the same list!
+categories = ["A", "B", "C"]
+wrong_way = dict.fromkeys(categories, [])
+wrong_way["A"].append(1)
+print(wrong_way)
+
+# CORRECT - use dictionary comprehension for independent lists
+right_way = {cat: [] for cat in categories}
+print(right_way)
+right_way["A"].append(1)
+print(right_way)
+
+# Attempting to access a non-resident key raises KeyError
+
+product = {
+    "name": "Laptop",
+    "price": 1299.99,
+    "stock": 45,
+    "category": "Electronics"
+}
+print("\n\n")
+try:
+    print(product["manufacturer"])
+except KeyError as e:
+    print(f"Key not found {e}")
+
+# .get() method
+# For safer retrieval when key existence is uncertain, the .get() method provides
+# an elegant solution. It returns None (or a specified default value) instead of raising
+# an exception if the key doesn't exist.
+
+print("\n\n")
+manufacturer = product.get("manufacturer")
+print(type(manufacturer))
+print(manufacturer)
+
+# Provide a custom default value.
+warranty = product.get("warranty", "No warranty information")
+print(type(warranty))
+print(warranty)
+# get() is especially useful in data pipelines
+customer_data = {"name": "John Doe", "email": "john@example.com"}
+phone = customer_data.get("phone","Not provided")
+print(phone)
+address = customer_data.get("address","Not provided")
+print(address)
+
+#.setdefault() method
+#The .setdefault() method combines retrieval and insertion in a single operation.
+#It retrieves a value if the key exists, or inserts a default value and returns it
+# if the key is missing, which is perfect for accumulation patterns.
+print("\n\n")
+# Using .setdefault() for initialization and retrieval
+page_visits = {}
+
+count = page_visits.setdefault("home",0)
+print(count)
+page_visits["home"] += 1
+
+# Subsequent call returns existing value
+count = page_visits.setdefault("home",0)
+print(count)
+# Practical example: grouping items
+inventory = [
+    ("apple", "fruit"),
+    ("carrot", "vegetable"),
+    ("banana", "fruit"),
+    ("broccoli", "vegetable")
+]
+
+grouped = {}
+for item, category in inventory:
+    grouped.setdefault(category , []).append(item)
+print(grouped)
+# The key difference between .get() and .setdefault() is that .setdefault() modifies the original  dictionary whereas .get() returns 
+# only the default value without altering the dictionary.
+
+# .popitem() - removes and returns last inserted pair (LIFO in Python 3.7+)
+print("\n\n")
+scores = {"Alice": 95, "Bob": 87, "Carol": 92, "David": 78}
+last_item = scores.popitem()
+print(last_item)
+print(scores)
+
+# Intersections & Union
+dict1 = {"a": 1, "b": 2, "c": 3}
+dict2 = {"b": 20, "c": 30, "d": 4}
+
+# Find common keys (intersection)
+common_keys = dict1.keys() & dict2.keys()
+print(common_keys)
+
+# Find all unique keys (union)
+all_keys = dict1.keys() | dict2.keys()
+print(all_keys)
+
+ Find keys in dict1 but not in dict2 (difference)
+unique_to_dict1 = dict1.keys() - dict2.keys()
+print(unique_to_dict1)
+
+# Symmetric difference - keys in either but not both
+exclusive_keys = dict1.keys() ^ dict2.keys()
+print(exclusive_keys)
+
+# Word count.
+words = ["apple", "banana", "apple", "cherry", "banana", "apple"]
+counts = {}
+for word in words:
+    counts[word] = counts.get(word,0) + 1
+print(counts)
+
+# Verbose Way
+# if "discount_code" in cart:
+#     discount = cart["discount_code"]
+# else:
+#     discount = 0
+
+# Clean Way with get()
+#discount = cart.get("discount_code", 0)
+
+# Safe Multi-Layered Parsing (Chaining)
+# When pulling data from highly nested dictionaries,# you can chain multiple .get()
+# calls to navigate deep structures safely.
+
+user_data = {}
+city = user_data.get("location",{}).get("address",{}).get("city","Unknown")
+#print(city)
+
+# EAFP: Easier to Ask Forgiveness than Permission
+# Managing KeyError and exceptions
+
+# EAFP approach - try first, handle exceptions
+
+user_data = {'username' : "data_analyst", "email": "analyst@company.com"}
+
+try:
+    phone = user_data['phone']
+    print(f"Phone:{phone}")
+except KeyError:
+    print("Phone number not ayailable")
+    phone = None
+
+# More sophisticated error handling with specific actions
+config = {"host": "localhost", "port": 5432}
+
+try:
+    database = config["database"]
+except KeyError:
+    print("Warning: Database not specified using default")
+    database = "default_db"
+    config["database"] = database
+
+
+
+
+
+
