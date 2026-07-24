@@ -313,6 +313,29 @@ user_data = {}
 city = user_data.get("location",{}).get("address",{}).get("city","Unknown")
 #print(city)
 
+# Two ways of word count with both .get() and .setdefault()
+#.get()
+new_dict = {}
+home = new_dict.get("Home",0)
+print(home)
+
+products = ['Apple','Orange','Grapes','Carrot','Banana','Apple','Banana','Apple','Carrot']
+
+prod = {}
+
+for product in products:
+    prod[product] = prod.get(product,0) + 1
+
+print(prod)
+
+#.setdefault()
+my_dict = {}
+for product in products:
+    my_dict[product] = my_dict.setdefault(product,0)
+    my_dict[product] += 1
+
+print(my_dict)
+
 # EAFP: Easier to Ask Forgiveness than Permission
 # Managing KeyError and exceptions
 
