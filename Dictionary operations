@@ -359,6 +359,218 @@ except KeyError:
     print("Warning: Database not specified using default")
     database = "default_db"
     config["database"] = database
+# Merging operators
+# Union operator | creates a new merged dictionary .
+defaults = {"theme" : "light", "language" : "en" , "notifications" : True}
+user_prefs = {"theme" : "dark" , "font_size" : 14}
+
+final_config = defaults | user_prefs
+#print(final_config)
+
+# Update operator |= modifies in place
+
+settings = {"auto_save":True, "theme": "Light"}
+settings |={"theme" : "dark", "font_size" : 12}
+#print(settings)
+
+# ** double-star unpacking.
+# Double-star unpacking
+base_config = {"host": "localhost", "port": 5432, "ssl": False}
+override_config = {"port": 5433, "ssl": True, "timeout": 30}
+
+# Merge using unpacking.
+merged = {**base_config , **override_config}
+print(merged)
+
+# Multiple dictionary merge.
+db_config = {"database": "analytics"}
+auth_config = {"username": "admin", "password": "secret"}
+pool_config = {"pool_size": 10, "max_overflow": 20}
+
+complete_config = {**db_config, **auth_config, **pool_config}
+print(complete_config)
+
+# Collision precedence
+# Across all merging techniques, the rule is simple: last seen wins.
+# The value from the right-hand dictionary overwrites the left-hand one if keys collide:
+
+dict1 = {"a": 1, "b": 2, "c": 3}
+dict2 = {"b": 20, "c": 30, "d": 4}
+dict3 = {"c": 300, "e": 5}
+
+result = dict1 | dict2 | dict3
+print(result)
+
+result2 = {**dict1, **dict2, **dict3}
+print(result2)
+
+# Order matters - reversing changes the result
+result3 = dict3 | dict2 | dict1
+print(result3)
+
+# Aliases not copy .
+# Reference assignment - creates an alias, not a copy
+original = {"name": "Dataset_v1", "records": 1000}
+alias = original
+
+# Modifying through the alias changes the original
+alias["records"] = 2000
+# print(original)
+# print(alias is original)
+
+# Shallow copies with .copy() or .dict()
+# A shallow copy (.copy() or dict()) creates a new dictionary object,
+# but nested mutable objects remain shared references.
+
+# Shallow copy - creates a new dict but shares nested objects.
+original = {
+    "name" : "Experiment_A",
+    "parameters" : {"learning_rate" : 0.01, "epochs" : 100},
+     "results" : [0.85, 0.89, 0.92]
+}
+
+shallow = original.copy()
+
+# Modifying top-level keys works as expected.
+shallow["name"] = "Experiment_B"
+print(original["name"])
+print(shallow["name"])
+
+# But modifying nested objects affects both
+shallow["parameters"] ["learning_rate"] = 0.001
+print(original["parameters"] ["learning_rate"])
+
+shallow["results"].append(0.94)
+print(original["results"])
+
+ #Top-level keys are modified as expected, but if you modify nested mutable objects,
+# it affects both the original and the shallow copy.
+
+
+# Deep copies using copy.deepcopy()
+#Because of this, shallow copies often cause subtle bugs in machine learning pipelines and configuration management.
+#Therefore, you need a deep copy using copy.deepcopy() from the standard library for
+# dictionaries containing nested mutable objects
+
+import copy
+# Deep copy - creates completely independent nested structures
+original = {
+    "model": "RandomForest",
+    "hyperparameters": {
+        "n_estimators": 100,
+        "max_depth": 10,
+        "min_samples_split": 2
+    },
+    "feature_importance": [0.3, 0.25, 0.2, 0.15, 0.1]
+}
+deep = copy.deepcopy(original)
+
+#Modify nested structures
+deep["hyperparameters"] ["n_estimators"] = 200
+deep["feature_importance"].append(0.05)
+
+# Original remains completely unchanged.
+print(original["hyperparameters"]["n_estimators"])
+print(len(original["feature_importance"]))
+print(len(deep["feature_importance"]))
+
+# Counter
+# The Counter class is a specialized dictionary subclass designed for counting
+# hashable objects and performing multiset operations.
+# It's particularly powerful for statistical analysis and frequency
+# 'distributions. Let’s see an example of how this type works:
+# In Python, a multiset (also known as a bag) is an unordered
+# collection of elements where individual items can appear multiple times.
+# Python handles multisets in two primary ways: using the built-in collections.
+# Counter class, or by installing a dedicated third-party library.
+from collections import Counter
+# Count occurences in a sequence .
+tags = ["python", "data", "python", "ml", "data", "python", "statistics", "ml"]
+tag_counts = Counter(tags)
+print(tag_counts)
+
+# Most common elements
+print(tag_counts.most_common(3))
+
+# Counter arithmetic - multiset operations
+skills_alice = Counter(["Python", "SQL", "Tableau", "Python"])
+skills_bob = Counter(["Python", "R", "SQL"])
+
+print(skills_alice)
+print(skills_bob)
+
+#Union (maximum of counts) - This returns the maximum count for any duplicate key,
+# not the right-hand value.
+
+combined_skills = skills_alice | skills_bob
+print(combined_skills)
+
+# Intersection (minimum of counts)
+shared_skills = skills_alice & skills_bob
+print(shared_skills)
+
+# Addition - sum of counts
+total_mentions = skills_alice + skills_bob
+print(total_mentions)
+
+# # defaultdict
+# The defaultdict from the collections module eliminates repetitive key existence
+# checks by automatically initializing missing keys with a default value.
+# This is very useful for accumulation tasks like counting, grouping, or
+# building nested structures.
+
+from collections import defaultdict
+# Standard dict requires manual checking.
+word_count = {}
+text = "the quick brown fox jumps over the lazy dog".split()
+
+for word in text:
+     word_count[word] = word_count.get(word,0) + 1
+
+print(word_count)
+
+# defaultdict eliminates the check.
+
+word_count_auto = defaultdict(int) # int returns 0
+#print(type(word_count_auto))
+for word in text:
+    word_count_auto[word] += 1
+
+print(dict(word_count_auto))
+
+# Grouping with defaultdict(list)
+transactions = [
+    ("2024-01-15", "groceries", 45.50),
+    ("2024-01-15", "gas", 60.00),
+    ("2024-01-16", "groceries", 32.75),
+    ("2024-01-16", "entertainment", 25.00),
+    ("2024-01-17", "gas", 55.00)
+]
+
+by_date = defaultdict(list)
+for date, category , amount in transactions:
+    by_date[date].append((category,amount))
+
+for date , items in by_date.items():
+    print(f"{date}: {items}")
+
+# Nested defaultdict for complex structures
+nested = defaultdict(lambda: defaultdict(int))
+events = [
+    ("2024-01", "login", 150),
+    ("2024-01", "purchase", 45),
+    ("2024-02", "login", 200),
+    ("2024-02", "purchase", 60)
+]
+
+for month , event_type , count in events:
+    nested[month][event_type] += count
+
+print(dict(nested))
+
+
+
+
 
 
 
