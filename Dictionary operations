@@ -173,7 +173,9 @@ raw_data = {"a":10, "b":None, "c":5}
 clean_data = {k: v for k, v in raw_data.items() if v is not None}
 print(clean_data)
 
-#dict.fromkeys()
+#dict.fromkeys() -->  must be prefixed with dict. because it is a class method tied to the built-in
+#dictionary type rather than an independent global function. It builds a new dictionary using an 
+#iterable of keys and a single shared default value.
 # Initialize multiple keys with the same default value.
 print("\n\n")
 categories = ["electronics", "clothing", "food", "books"]
@@ -184,6 +186,11 @@ print(inventory)
 user_fields = ["email", "phone", "address", "company"]
 user_profile = dict.fromkeys(user_fields)
 print(user_profile)
+
+# Removing duplicates 
+duplicates = ["email", "phone", "address", "company","email","address"]
+remove_duplicates = dict.fromkeys(duplicates,0)
+print(remove_duplicates)
 
 # DANGEROUS - all keys share the same list!
 categories = ["A", "B", "C"]
