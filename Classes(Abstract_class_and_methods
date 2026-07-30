@@ -28,6 +28,51 @@ dog.eat()
 dog.details()
 
 print ("\n\n")
+from abc import abstractmethod , ABC
+class animal(ABC):
+    def __init__(self,name,sound):
+       self.name = name
+       self.sound = sound
+
+    @abstractmethod
+    def speak(self):
+        print(f"{self.name} is {self.sound}")
+        return True
+
+    def eat(self):
+        print(f"{self.name} is eating !!")
+
+    def details(self):
+        print(f"{self.name} is a {self.breed}")
+
+class dog(animal):
+    def __init__(self,name,sound,breed):
+        super().__init__(name,sound)
+        self.breed = breed
+
+    def speak(self):
+        status = super().speak()
+        if status:
+            print(f"Woof Woof...")
+class cat(animal):
+     def __init__(self,name,sound,breed):
+         super().__init__(name,sound)
+         self.breed = breed
+
+     def speak(self):
+         status = super().speak()
+         if status:
+             print(f"Meoow Meoow...")
+
+dog = dog("Gloku","barking", "bloodhound")
+dog.speak()
+dog.details()
+dog.eat()
+
+cat = cat("Dixcy","purring","Siamese")
+cat.speak()
+cat.details()
+cat.eat()
 from abc import ABC, abstractmethod
 
 # 1. Define the abstract base class (blueprint)
