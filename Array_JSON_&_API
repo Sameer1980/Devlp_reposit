@@ -1,0 +1,175 @@
+# The Native array Module (Homogeneous Data).
+# If you require better memory management for basic numbers,
+# use the built-in Python array module. These require all elements to be of the
+# exact same data type (homogeneous), which you define using a typecode
+# (e.g., 'i' for signed integers, 'd' for double-precision floats).
+
+import array as arr
+
+#Create an array of signed integers ('i).
+numbers = arr.array('i',[10,20,30,40,50])
+
+#Append a new item
+numbers.append(500)
+#print(type(numbers))
+#print(numbers)
+
+# Common Typecodes
+# 'b' : Signed char / integer (1 byte)
+# 'i' : Signed integer (usually 2 or 4 bytes)
+# 'f' : Floating-point float (4 bytes)
+# 'd' : Floating-point double (8 bytes)
+
+#======================== JSON & APIs===============================
+
+# json.dumps() - This function is used to serialize a Python object into a JSON string.
+# The dumps() function takes a single argument, the Python object, and returns a
+# JSON string.
+
+import json
+
+#Python object to JSON string.
+python_obj = {"name" : "John" , "age" : 30 }
+
+json_string = json.dumps(python_obj)
+print(type(json_string))
+print(json_string)
+
+# json.loads() - This function is used to parse a JSON string into a Python object.
+# The loads() function takes a single argument, the JSON string, and returns a
+# Python object.
+
+import json
+
+# JSON string to Python object .
+json_string = '{"name": "John", "age": 30}'
+
+python_obj = json.loads(json_string)
+print(type(python_obj))
+print(python_obj)
+
+#json.dump() - This function is used to serialize a Python object and write it to a JSON file.
+# The dump() function takes two arguments, the Python object and the file object.
+
+import json
+
+#serialize a Python object and write to JSON file.
+
+python_obj = {"name" : "John" , "age" : 30 }
+
+with open('data.json' ,'w') as file:
+     json.dump(python_obj,file)
+
+#json.load() -> This function is used to read a JSON file and parse its contents
+# into a Python object. The load() function takes a single argument,
+# the file object, and returns a Python object.
+
+# read json file and parse contents .
+with open('data.json','r') as file:
+     python_obj = json.load(file)
+
+print(python_obj)
+
+# Python list to JSON.
+#To convert a Python list to JSON format, you can use the json.dumps() method
+# from the json library.
+
+import json
+
+my_list = [1, 2, 3, "four", "five"]
+json_string = json.dumps(my_list)
+
+print(json_string)
+# Formatting JSON data
+# 1. Indent
+#This option specifies the number of spaces to use for indentation in
+# the output JSON string.
+
+import json
+data = {
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+}
+
+json_data = json.dumps(data , indent = 2)
+
+print(json_data)
+
+# 2. sort_keys - This option specifies whether the keys in the output JSON string
+# should be sorted in alphabetical order.
+
+data = {
+    "name": "John",
+    "age": 30,
+    "city": "New York"
+}
+
+sorted_json = json.dumps(data, sort_keys= True)
+print(sorted_json)
+
+# Safe parsing - Error handling-External JSON payloads from APIs or user inputs
+# can often be malformed. # Always wrap your parsing code in a try-except block
+# to catch a JSONDecodeError.
+import json
+
+broken_json = '{"name" : "Bob" , "age" : 25,'
+try:
+    data = json.loads(broken_json)
+except json.JSONDecodeError as e:
+    print(f"Invalid JSON format: {e}")
+
+# By providing the skipkeys argument, you can prevent getting a TypeError
+# when creating JSON data with unsupported Python keys:
+
+available_nums = {(1, 2): True, 3: False}
+
+new_nums = json.dumps(available_nums, skipkeys = True)
+#print(new_nums)
+
+#When you set skipkeys in json.dumps() to True, then Python skips the keys
+# that are not supported and would otherwise raise a TypeError.
+# The result is a JSON-formatted string that only contains a subset of the
+# input dictionary. In practice, you usually want your JSON data to resemble
+# the input object as close as possible. So, you must use skipkeys with
+# caution to not lose information when calling json.dumps().
+
+print("\n\n")
+# ==================== Python working with APIs=====================================
+import requests
+request = requests.get("https://randomuser.me/api/")
+print(type(request))
+print(request)
+text = request.text
+print(text)
+
+print("\n\n")
+
+import requests
+response = requests.get("https://api.thecatapi.com")
+# print(response)
+# print(response.text)
+
+response = requests.get("https://api.thecatapi.com/v1/breeds")
+#print(response.text)
+
+response = requests.get("https://api.thedogapi.com")
+# print(response)
+# print(response.text)
+
+response = requests.get("https://api.thedogapi.com/v1/breeds")
+#print(response.text)
+
+# Status code & headers
+response = requests.get("https://api.thecatapi.com/v1/breeds")
+print(response.status_code)
+print(response.text)
+print(response.headers)
+print(response.url)
+print(response.method)
+
+
+
+
+
+
