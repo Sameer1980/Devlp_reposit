@@ -27,7 +27,8 @@ class bank:
 
 class InsufficientFund(Exception):
     def __init__(self,message):
-        super(InsufficientFund,self).__init__(message)
+        #super(InsufficientFund,self).__init__(message)
+          super().__init__(message)
 
 # DRIVER CODE
 sbi = bank("SBI",1000)
