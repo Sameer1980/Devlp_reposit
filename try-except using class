@@ -1,3 +1,12 @@
+try:
+    # Run the "risky" code that might trigger an error.
+except SpecificError:
+    # Execute this block only if a specific error occurs.
+else:
+    # Execute this block only if the try block runs perfectly without errors.
+finally:
+    # Always execute this block, regardless of what happened above.
+
 class bank:
     def __init__(self, name: str, balance: int):
         self.name = name
