@@ -45,6 +45,51 @@ finally:
 
 
 
+try:
+    digit = 10 / 0
+    print(digit)
+except Exception as e:
+    print(f"An unexpected problem occurred - {e}")
+
+# args is a tuple attribute in which Python stores all arguments passed
+# to an exception instance.
+try:
+    digit = 10 / 0
+    print(digit)
+except Exception as e:
+    print(f"An unexpected problem occurred - {e.args}")
+
+try:
+    digit = 10 / 0
+    print(digit)
+except ZeroDivisionError as z:
+    print(f"An unexpected problem occurred - {z}")
+
+print("\n\n")
+try:
+    list1 = [1,2,3,4]
+    for i in range(len(list1)):
+        print(i,'-',list1[9])
+except Exception as e:
+    print(f"An unexpected problem occured - {e}")
+
+print("\n\n")
+try:
+    list1 = [1,2,3,4]
+    for i in range(len(list1)):
+        print(i,'-',list1[9])
+except IndexError as e:
+    print(f"An unexpected problem occured - {e}")
+
+# list1 = [1,2,3,4]
+#
+# for i in range(len(list1)):
+#     print(i,'-',list1[i])
+
+
+
+
+
 
 
 
