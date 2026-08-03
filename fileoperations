@@ -43,6 +43,9 @@
 
 # For large datasets , log files or huge text documents do not use read() or readlines() bacause
 # both load the entire file into your computer memory overloading your RAM.
+#In Python, the readlines() method reads all the lines from a file and returns them as a list of strings, where each element in the list 
+#represents a single line.It preserves every string element in the returned list includes the trailing newline character (\n) at the end, 
+# except possibly the very last line if it doesn't have one.
 
 with open ("testfile.txt","r") as file1:
     for line in file1:
