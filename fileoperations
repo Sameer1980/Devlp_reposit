@@ -10,7 +10,7 @@
 # with open("testfile.txt","a") as file1:
 #     file1.write("\n Adding a third and final line to the file.")
 
-#Reading - multiple lines.
+#Reading - multiple lines. Read() returns the entire file content as a single string.Loads the entire file at once.
 # with open("testfile.txt","r") as file1:
 #     fileread = file1.read()
 #     print (f"Using read: {fileread}")
@@ -22,7 +22,7 @@
 #     print (f"Using readline(): {fileread}")
 
 #print ("\n\n")
-# Reading multiple lines
+# Reading multiple lines. Readlines() returns a list of strings where each line in the file is an element of the list.
 # with open ("testfile.txt","r") as file1:
 #     fileread = file1.readlines()
 #     print (f"Using readlines():{fileread} ")
