@@ -1,0 +1,54 @@
+# s = input("Enter a str:\n")
+#
+# digits = 0
+# characters = 0
+# special = 0
+# spaces = 0
+#
+# for ch in s:
+#     if ch.isdigit():
+#         digits += 1
+#     elif ch.isalpha():
+#         characters += 1
+#     elif ch.isspace():
+#         spaces += 1
+#     else:
+#         special += 1
+#
+# print(f"No. of digits: {digits}")
+# print(f"No. of characters: {characters}")
+# print(f"No. of special characters: {special}")
+# print(f"No. of spaces: {spaces}")
+#
+# Myinput = input("Enter text: ") # 12Skyblue@@ll out except you!!
+#
+# digits = 0
+# characters = 0
+# special_characters = 0
+# spaces = 0
+#
+# for i in Myinput:
+#     if i.isdigit():
+#         digits += 1
+#     elif i.isalpha():
+#         characters += 1
+#     elif i.isspace():
+#         spaces += 1
+#     else:
+#         special_characters += 1
+#
+# print(f"Number of digits: {digits}")
+# print(f"Number of characters: {characters}" )
+# print(f"Number of special characters: {special_characters}")
+# print(f"Number of spaces: {spaces}" )
+
+# print("123".isdigit())
+# print("12.3".isdigit())
+
+# print("Hello".isalpha())
+# print("Hello 2".isalpha())
+# print("Python!".isalpha())
+
+print(" ".isspace())
+print("\n\t".isspace())
+print(" a ".isspace())
