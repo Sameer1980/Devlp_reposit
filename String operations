@@ -19,17 +19,18 @@ print(marks_comments.format(650,700))
 
 #Decimal precision -
 print("{:.2f}".format(3.1415923478654231))
-value = (3.1415923478654231
+value = 3.1415923478654231
 print(f"{price:.2f}")
 
 #Text padding
 print("{:>10}".format("test"))
 
-#Lower() , Upper() and Title()
+#Lower() , Upper() and Title() and swapcase()
 greeting = "Welcome to Python."
 print(greeting.lower())
 print (greeting.upper())
 print(greeting.title())
+print(greeting.swapcase())
 
 print ("\n\n")
 # Strip()
@@ -56,7 +57,7 @@ splitted2 = name.split('&')
 print(splitted2)
 
 #Find() - The Python string method find() returns the index of the first occurence
-# of the string passed as the argument.It returns -1 if no occurrence is found.
+# of the string passed as the argument.It returns -1 if no occurrence is found.Indexing starts from 0.
 
 text = "Mount Everest is the highest peak in the world!!"
 print (text.find("Everest"))
